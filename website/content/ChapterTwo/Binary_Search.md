@@ -8,14 +8,14 @@ weight: 11
 
 - 二分搜索的经典写法。需要注意的三点：
 	1. 循环退出条件，注意是 low <= high，而不是 low < high。
-	2. mid 的取值，mid := low + (high-low)>>1
+	2. mid 的取值，mid := (high+low)>>1
 	3. low 和 high 的更新。low = mid + 1，high = mid - 1。
 
 ```go
 func binarySearchMatrix(nums []int, target int) int {
 	low, high := 0, len(nums)-1
 	for low <= high {
-		mid := low + (high-low)>>1
+		mid := (high+low)>>1
 		if nums[mid] == target {
 			return mid
 		} else if nums[mid] > target {
@@ -39,7 +39,7 @@ func binarySearchMatrix(nums []int, target int) int {
 func searchFirstEqualElement(nums []int, target int) int {
 	low, high := 0, len(nums)-1
 	for low <= high {
-		mid := low + ((high - low) >> 1)
+		mid := (high+low) >> 1
 		if nums[mid] > target {
 			high = mid - 1
 		} else if nums[mid] < target {
@@ -58,7 +58,7 @@ func searchFirstEqualElement(nums []int, target int) int {
 func searchLastEqualElement(nums []int, target int) int {
 	low, high := 0, len(nums)-1
 	for low <= high {
-		mid := low + ((high - low) >> 1)
+		mid := (high+low) >> 1
 		if nums[mid] > target {
 			high = mid - 1
 		} else if nums[mid] < target {
@@ -77,7 +77,7 @@ func searchLastEqualElement(nums []int, target int) int {
 func searchFirstGreaterElement(nums []int, target int) int {
 	low, high := 0, len(nums)-1
 	for low <= high {
-		mid := low + ((high - low) >> 1)
+		mid := (high+low) >> 1
 		if nums[mid] >= target {
 			if (mid == 0) || (nums[mid-1] < target) { // 找到第一个大于等于 target 的元素
 				return mid
@@ -94,7 +94,7 @@ func searchFirstGreaterElement(nums []int, target int) int {
 func searchLastLessElement(nums []int, target int) int {
 	low, high := 0, len(nums)-1
 	for low <= high {
-		mid := low + ((high - low) >> 1)
+		mid := (high+low) >> 1
 		if nums[mid] <= target {
 			if (mid == len(nums)-1) || (nums[mid+1] > target) { // 找到最后一个小于等于 target 的元素
 				return mid
@@ -114,7 +114,7 @@ func searchLastLessElement(nums []int, target int) int {
 func peakIndexInMountainArray(A []int) int {
 	low, high := 0, len(A)-1
 	for low < high {
-		mid := low + (high-low)>>1
+		mid := (high+low)>>1
 		// 如果 mid 较大，则左侧存在峰值，high = m，如果 mid + 1 较大，则右侧存在峰值，low = mid + 1
 		if A[mid] > A[mid+1] {
 			high = mid
